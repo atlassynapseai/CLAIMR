@@ -1,13 +1,8 @@
 import Link from 'next/link';
 import { formatDistanceToNow } from 'date-fns';
 import { getDashboardMetrics } from '@/lib/data';
-import { currency } from '@/lib/utils';
+import { currency, percentage } from '@/lib/utils';
 import { QuickActions } from '@/components/quick-actions';
-
-function percentage(amount: number, total: number) {
-  if (!total) return 0;
-  return (amount / total) * 100;
-}
 
 function StatCard({ label, value }: { label: string; value: string }) {
   return (

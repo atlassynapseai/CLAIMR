@@ -27,3 +27,8 @@ export function badgeColor(value?: string | null) {
   if (value === 'DEAD') return 'bg-red-500/15 text-red-400 border-red-500/30';
   return 'bg-zinc-700/40 text-zinc-300 border-zinc-600';
 }
+
+export function percentage(amount: number, total: number): number {
+  if (!total) return 0;
+  return (amount / total) * 100;
+}

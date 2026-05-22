@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const countiesDefaults = [
   { id: 'miami-dade-fl', label: 'Miami-Dade County, FL' },
@@ -13,6 +13,22 @@ export function SettingsPanel({ statuses }: { statuses: Record<string, boolean> 
   const [county, setCounty] = useState('');
   const [counties, setCounties] = useState(countiesDefaults);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const raw = window.localStorage.getItem('claimr-settings');
+    if (!raw) return;
+
+    try {
+      const saved = JSON.parse(raw) as { threshold?: number; cronSchedule?: string; counties?: { id: string; label: string }[] };
+      if (typeof saved.threshold === 'number') setThreshold(saved.threshold);
+      if (typeof saved.cronSchedule === 'string') setCronSchedule(saved.cronSchedule);
+      if (Array.isArray(saved.counties) && saved.counties.length > 0) setCounties(saved.counties);
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('claimr-settings', JSON.stringify({ threshold, cronSchedule, counties }));
+  }, [threshold, cronSchedule, counties]);
 
   return (
     <div className="space-y-4">

@@ -44,6 +44,7 @@ async function getSkipifyContact(ownerName: string, address: string): Promise<Co
   const key = process.env.SKIPIFY_API_KEY;
   if (!key) return null;
 
+  // Replace this URL with the production Skipify enrichment endpoint for your account.
   const response = await fetch('https://api.skipify.com/v1/lookup', {
     method: 'POST',
     headers: {

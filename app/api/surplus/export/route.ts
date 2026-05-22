@@ -6,7 +6,7 @@ import { getSupabaseAdmin } from '@/lib/supabase-admin';
 
 function escapeCsvCell(value: unknown): string {
   const normalized = String(value ?? '').replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-  const safe = /^[=+\-@]/.test(normalized) ? `'${normalized}` : normalized;
+  const safe = /^[=+\-@]/.test(normalized) ? `\t'${normalized}` : normalized;
   return `"${safe.replaceAll('"', '""')}"`;
 }
 
