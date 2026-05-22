@@ -45,14 +45,14 @@ CLAIMR (Connecting Landowners to Automated Intelligent Money Recovery) is a mult
 
 | Variable | Description |
 |---|---|
-| `NEXT_PUBLIC_SUPABASE_URL` | Configured in `.env.local` |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Configured in `.env.local` |
-| `SUPABASE_SERVICE_ROLE_KEY` | Configured in `.env.local` |
-| `ANTHROPIC_API_KEY` | Configured in `.env.local` |
-| `ATTOM_API_KEY` | Configured in `.env.local` |
-| `SKIPIFY_API_KEY` | Configured in `.env.local` |
-| `SURPLUS_CRON_SECRET` | Configured in `.env.local` |
-| `NEXT_PUBLIC_APP_URL` | Configured in `.env.local` |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL used by browser and server clients. |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Public Supabase anon key for client-side auth/data access. |
+| `SUPABASE_SERVICE_ROLE_KEY` | Server-only Supabase service role key for privileged API routes. |
+| `ANTHROPIC_API_KEY` | Anthropic API key for simulated risk and contact enrichment. |
+| `ATTOM_API_KEY` | ATTOM Data API key for property/lien risk enrichment. |
+| `SKIPIFY_API_KEY` | Skipify API key for skip-tracing owner contact data. |
+| `SURPLUS_CRON_SECRET` | Shared secret used to authorize cron scraper endpoint calls. |
+| `NEXT_PUBLIC_APP_URL` | Base app URL used by internal cron-to-API requests. |
 
 ## API endpoints
 

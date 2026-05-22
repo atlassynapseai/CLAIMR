@@ -26,8 +26,9 @@ export default async function LeadsPage({ searchParams }: Params) {
   });
 
   const pageSize = 10;
-  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
-  const rows = filtered.slice((page - 1) * pageSize, page * pageSize);
+  const totalPages = filtered.length === 0 ? 0 : Math.ceil(filtered.length / pageSize);
+  const safePage = totalPages === 0 ? 1 : Math.min(Math.max(1, page), totalPages);
+  const rows = filtered.slice((safePage - 1) * pageSize, safePage * pageSize);
 
   return (
     <div className="space-y-4">
@@ -116,13 +117,13 @@ export default async function LeadsPage({ searchParams }: Params) {
 
       <div className="flex items-center justify-between text-sm text-zinc-400">
         <p>
-          Page {Math.min(page, totalPages)} of {totalPages}
+          {totalPages === 0 ? 'No results' : `Page ${safePage} of ${totalPages}`}
         </p>
         <div className="space-x-2">
-          <Link className="btn-muted" href={`?q=${encodeURIComponent(query)}&status=${status}&risk=${risk}&state=${state}&page=${Math.max(1, page - 1)}`}>
+          <Link className="btn-muted" href={`?q=${encodeURIComponent(query)}&status=${status}&risk=${risk}&state=${state}&page=${Math.max(1, safePage - 1)}`}>
             Previous
           </Link>
-          <Link className="btn-muted" href={`?q=${encodeURIComponent(query)}&status=${status}&risk=${risk}&state=${state}&page=${Math.min(totalPages, page + 1)}`}>
+          <Link className="btn-muted" href={`?q=${encodeURIComponent(query)}&status=${status}&risk=${risk}&state=${state}&page=${totalPages === 0 ? 1 : Math.min(totalPages, safePage + 1)}`}>
             Next
           </Link>
         </div>
