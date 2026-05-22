@@ -3,8 +3,9 @@ import { CopyField, LeadActions } from '@/components/lead-actions';
 import { getLeadById } from '@/lib/data';
 import { currency } from '@/lib/utils';
 
-export default async function LeadDetailPage({ params }: { params: { id: string } }) {
-  const lead = await getLeadById(params.id);
+export default async function LeadDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const lead = await getLeadById(id);
 
   return (
     <div className="space-y-4">

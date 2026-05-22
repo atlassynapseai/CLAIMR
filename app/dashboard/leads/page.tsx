@@ -4,15 +4,16 @@ import { getLeads } from '@/lib/data';
 import { badgeColor, currency } from '@/lib/utils';
 
 type Params = {
-  searchParams?: Record<string, string | string[] | undefined>;
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
 };
 
 export default async function LeadsPage({ searchParams }: Params) {
-  const page = Number(searchParams?.page ?? 1);
-  const query = String(searchParams?.q ?? '');
-  const status = String(searchParams?.status ?? 'ALL');
-  const risk = String(searchParams?.risk ?? 'ALL');
-  const state = String(searchParams?.state ?? 'ALL');
+  const resolvedSearchParams = (await searchParams) ?? {};
+  const page = Number(resolvedSearchParams.page ?? 1);
+  const query = String(resolvedSearchParams.q ?? '');
+  const status = String(resolvedSearchParams.status ?? 'ALL');
+  const risk = String(resolvedSearchParams.risk ?? 'ALL');
+  const state = String(resolvedSearchParams.state ?? 'ALL');
   const leads = await getLeads();
 
   const filtered = leads.filter((lead) => {
