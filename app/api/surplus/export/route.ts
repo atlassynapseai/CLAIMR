@@ -4,6 +4,12 @@ export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase-admin';
 
+function escapeCsvCell(value: unknown): string {
+  const normalized = String(value ?? '').replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+  const safe = /^[=+\-@]/.test(normalized) ? `'${normalized}` : normalized;
+  return `"${safe.replaceAll('"', '""')}"`;
+}
+
 export async function GET() {
   const { data, error } = await getSupabaseAdmin().from('surplus_leads').select('*').order('created_at', { ascending: false });
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
@@ -20,11 +26,11 @@ export async function GET() {
       lead.status,
       lead.created_at,
     ]
-      .map((entry) => `"${String(entry ?? '').replaceAll('"', '""')}"`)
+      .map(escapeCsvCell)
       .join(',')
   );
 
-  const csv = [headers.join(','), ...rows].join('\n');
+  const csv = [headers.map(escapeCsvCell).join(','), ...rows].join('\n');
 
   return new NextResponse(csv, {
     status: 200,

@@ -12,6 +12,7 @@ export function SettingsPanel({ statuses }: { statuses: Record<string, boolean> 
   const [cronSchedule, setCronSchedule] = useState('0 9 * * *');
   const [county, setCounty] = useState('');
   const [counties, setCounties] = useState(countiesDefaults);
+  const [error, setError] = useState<string | null>(null);
 
   return (
     <div className="space-y-4">
@@ -45,14 +46,22 @@ export function SettingsPanel({ statuses }: { statuses: Record<string, boolean> 
             className="btn-primary"
             onClick={() => {
               if (!county.trim()) return;
-              setCounties((current) => [...current, { id: county.toLowerCase().replace(/\s+/g, '-'), label: county }]);
+              const nextId = county.toLowerCase().replace(/\s+/g, '-');
+              if (counties.some((item) => item.id === nextId)) {
+                setError('County already exists.');
+                return;
+              }
+
+              setCounties((current) => [...current, { id: nextId, label: county }]);
               setCounty('');
+              setError(null);
             }}
             type="button"
           >
             Add
           </button>
         </div>
+        {error ? <p className="text-xs text-red-400">{error}</p> : null}
         <ul className="space-y-2 text-sm">
           {counties.map((item) => (
             <li key={item.id} className="flex items-center justify-between rounded border border-[#1e1e2e] px-3 py-2">

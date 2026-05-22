@@ -4,6 +4,11 @@ import { getDashboardMetrics } from '@/lib/data';
 import { currency } from '@/lib/utils';
 import { QuickActions } from '@/components/quick-actions';
 
+function percentage(amount: number, total: number) {
+  if (!total) return 0;
+  return (amount / total) * 100;
+}
+
 function StatCard({ label, value }: { label: string; value: string }) {
   return (
     <div className="card p-4">
@@ -48,7 +53,7 @@ export default async function DashboardOverviewPage() {
                 <span>{String(amount)}</span>
               </div>
               <div className="h-2 rounded bg-[#1e1e2e]">
-                <div className="h-2 rounded" style={{ width: `${metrics.total ? (Number(amount) / metrics.total) * 100 : 0}%`, backgroundColor: String(color) }} />
+                <div className="h-2 rounded" style={{ width: `${percentage(Number(amount), metrics.total)}%`, backgroundColor: String(color) }} />
               </div>
             </div>
           ))}
