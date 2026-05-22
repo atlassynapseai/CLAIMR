@@ -1,0 +1,20 @@
+CREATE TABLE surplus_leads (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  county_id TEXT NOT NULL,
+  case_number TEXT UNIQUE NOT NULL,
+  original_owner TEXT NOT NULL,
+  property_address TEXT NOT NULL,
+  opening_bid DECIMAL(12,2) NOT NULL,
+  final_sale_price DECIMAL(12,2) NOT NULL,
+  gross_surplus DECIMAL(12,2) NOT NULL,
+  net_surplus DECIMAL(12,2),
+  status TEXT DEFAULT 'RAW_LEAD' CHECK (status IN ('RAW_LEAD','DEAD_LEAD','CLEARED_LEAD','READY_FOR_OUTREACH','CONTACTED','CLOSED')),
+  lien_data JSONB,
+  contact_data JSONB,
+  risk_score TEXT CHECK (risk_score IN ('CLEAN','RISK','DEAD')),
+  risk_reason TEXT,
+  county_name TEXT,
+  state TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
