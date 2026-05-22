@@ -43,16 +43,16 @@ CLAIMR (Connecting Landowners to Automated Intelligent Money Recovery) is a mult
 
 ## Environment variables
 
-| Variable |
-|---|
-| `NEXT_PUBLIC_SUPABASE_URL` |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` |
-| `SUPABASE_SERVICE_ROLE_KEY` |
-| `ANTHROPIC_API_KEY` |
-| `ATTOM_API_KEY` |
-| `SKIPIFY_API_KEY` |
-| `SURPLUS_CRON_SECRET` |
-| `NEXT_PUBLIC_APP_URL` |
+| Variable | Description |
+|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL` | Configured in `.env.local` |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Configured in `.env.local` |
+| `SUPABASE_SERVICE_ROLE_KEY` | Configured in `.env.local` |
+| `ANTHROPIC_API_KEY` | Configured in `.env.local` |
+| `ATTOM_API_KEY` | Configured in `.env.local` |
+| `SKIPIFY_API_KEY` | Configured in `.env.local` |
+| `SURPLUS_CRON_SECRET` | Configured in `.env.local` |
+| `NEXT_PUBLIC_APP_URL` | Configured in `.env.local` |
 
 ## API endpoints
 
