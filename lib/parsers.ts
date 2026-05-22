@@ -45,7 +45,8 @@ export function parsePdfAuctionText(text: string): ParsedLead[] {
 
   const leads: ParsedLead[] = [];
   // Expected PDF text row format:
-  // [1] case_number | [2] owner_name | [3] property_address | [4] opening_bid | [5] final_sale_price
+  // [1] case_number (YYYY-CA-XXXXXX in FL, YYYY-XXXXXX in TX; '-CA' is optional for cross-county support)
+  // [2] owner_name | [3] property_address | [4] opening_bid | [5] final_sale_price
   const regex = /(\d{4}(?:-CA)?-\d{6})\s*\|\s*([^|]+)\|\s*([^|]+)\|\s*\$?([\d,]+(?:\.\d{1,2})?)\s*\|\s*\$?([\d,]+(?:\.\d{1,2})?)/;
 
   for (const line of lines) {

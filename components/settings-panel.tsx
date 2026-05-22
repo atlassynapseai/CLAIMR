@@ -47,6 +47,7 @@ export function SettingsPanel({ statuses }: { statuses: Record<string, boolean> 
       <div className="card space-y-3 p-4">
         <h2 className="text-sm font-semibold">Cron Schedule Configuration</h2>
         <input className="input" value={cronSchedule} onChange={(event) => setCronSchedule(event.target.value)} />
+        <p className="text-xs text-zinc-500">This value is local reference only. Update `vercel.json` to change deployed cron schedule.</p>
       </div>
 
       <div className="card space-y-3 p-4">
